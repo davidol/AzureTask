@@ -1,0 +1,9 @@
+cluster_name            = "demo-k8s-001"
+dns_prefix              = "demok8s"
+system_node_count       = 1
+resource_group_name     = "demo-k8s-poc-001"
+location                = "Central Europe"
+user_cluster_count      = 1
+user_cluster_vm_size    = "Standard_B2ms"
+system_cluster_vm_size  = "Standard_B2ms"
+container_registry_name = "demoPrivateRegistry"

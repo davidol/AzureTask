@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: #{NAMESPACE}#
+  name: hello-world
+spec:
+  replicas: #{REPLICAS}#
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      namespace: #{NAMESPACE}#
+      labels:
+        app: hello-world
+    spec:
+      containers:          
+        - image: 'privatepocregistry.azurecr.io/app-#{Build.SourceBranchName}#:#{Build.BuildId}#'
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 300m
+              memory: 300M
+            limits:
+              cpu: 7500m
+              memory: 750M
+          name: hello-world
+          ports:
+            - containerPort: 8001
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+
